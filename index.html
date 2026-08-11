@@ -1,0 +1,338 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>PK — Tamil Romance</title>
+  <meta name="theme-color" content="#0b0b0b" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="experience">
+    <div class="backdrop"></div>
+    <div class="grain"></div>
+    <div class="moon"></div>
+
+    <header class="topbar">
+      <div class="brand">PK</div>
+      <button id="playlistBtn" class="icon-btn" aria-label="Open playlist">☰</button>
+    </header>
+
+    <section class="hero">
+      <div class="eyebrow">A PERSONAL MIXTAPE</div>
+      <h1>Tamil<br><span>Romance</span></h1>
+      <p class="tagline">Songs for rain, roads, memories &amp; the people who stayed.</p>
+    </section>
+
+    <section class="player-card">
+      <div class="now-playing">
+        <div class="art" id="art">♥</div>
+        <div class="track-meta">
+          <div class="track-title" id="title">Munbe Vaa</div>
+          <div class="track-artist" id="artist">A.R. Rahman · Shreya Ghoshal &amp; Naresh Iyer</div>
+        </div>
+      </div>
+
+      <div class="progress">
+        <span id="elapsed">0:00</span>
+        <input id="seek" type="range" min="0" max="100" value="0" />
+        <span id="duration">—</span>
+      </div>
+
+      <div class="controls">
+        <button class="control" id="prev" aria-label="Previous">↶</button>
+        <button class="play" id="play" aria-label="Play">▶</button>
+        <button class="control" id="next" aria-label="Next">↷</button>
+      </div>
+
+      <div class="hint" id="hint">Tap play. Music is played through YouTube.</div>
+    </section>
+
+    <div id="yt-wrap" aria-hidden="true">
+      <div id="player"></div>
+    </div>
+  </main>
+
+  <aside id="drawer" class="drawer" aria-hidden="true">
+    <div class="drawer-head">
+      <div>
+        <small>YOUR COLLECTION</small>
+        <h2>Tamil Romance</h2>
+      </div>
+      <button id="closeDrawer" class="icon-btn">×</button>
+    </div>
+    <div id="songList" class="song-list"></div>
+  </aside>
+
+  <div id="scrim" class="scrim"></div>
+  <script>
+    window.PLAYLIST = [
+  {
+    "title": "Kangal Irandal",
+    "artist": "James Vasanthan, Bellie Raj & Deepa Mariam",
+    "album": "Subramaniapuram",
+    "youtubeId": ""
+  },
+  {
+    "title": "Naan Pogiren",
+    "artist": "James Vasanthan & S.P. Balasubrahmanyam",
+    "album": "",
+    "youtubeId": ""
+  },
+  {
+    "title": "Anbil Avan",
+    "artist": "A.R. Rahman",
+    "album": "",
+    "youtubeId": ""
+  },
+  {
+    "title": "Unnaale Unnaale",
+    "artist": "Karthik, Krish & Harini",
+    "album": "Unnaale Unnaale",
+    "youtubeId": ""
+  },
+  {
+    "title": "Hosanna",
+    "artist": "A.R. Rahman",
+    "album": "Vinnaithaandi Varuvaayaa",
+    "youtubeId": ""
+  },
+  {
+    "title": "Idhu Varai",
+    "artist": "Yuvan Shankar Raja, Ajesh & Andrea Jeremiah",
+    "album": "Goa",
+    "youtubeId": ""
+  },
+  {
+    "title": "Mazhai Varum",
+    "artist": "Suzanne D'Mello & Joshua Sridhar",
+    "album": "",
+    "youtubeId": ""
+  },
+  {
+    "title": "Ennamo Yedho",
+    "artist": "A.R. Rahman",
+    "album": "",
+    "youtubeId": ""
+  },
+  {
+    "title": "June Ponal",
+    "artist": "Krish & Arun",
+    "album": "Unnale Unnale",
+    "youtubeId": ""
+  },
+  {
+    "title": "Iragai Poley",
+    "artist": "Yuvan Shankar Raja & Tanvi",
+    "album": "Naan Mahaan Alla",
+    "youtubeId": ""
+  },
+  {
+    "title": "Va Va Nilava",
+    "artist": "Haricharan",
+    "album": "",
+    "youtubeId": ""
+  },
+  {
+    "title": "Minnalgal Koothadum",
+    "artist": "Karthik, Nakkhul & Bombay Jayashree",
+    "album": "Polladhavan",
+    "youtubeId": ""
+  },
+  {
+    "title": "Paartha Mudhal",
+    "artist": "Harris Jayaraj & Unni Menon",
+    "album": "Vettaiyaadu Vilaiyaadu",
+    "youtubeId": ""
+  },
+  {
+    "title": "Naan Sonnadhum Mazhaivandhucha",
+    "artist": "Naresh Iyer & Saindhavi",
+    "album": "Mayakkam Enna",
+    "youtubeId": ""
+  },
+  {
+    "title": "Pirai Thedum",
+    "artist": "G.V. Prakash Kumar & Saindhavi",
+    "album": "Mayakkam Enna",
+    "youtubeId": ""
+  },
+  {
+    "title": "Yaar Indha Saalai Oram",
+    "artist": "G.V. Prakash Kumar, Saindhavi & Na. Muthukumar",
+    "album": "",
+    "youtubeId": ""
+  },
+  {
+    "title": "Anbe En Anbe",
+    "artist": "Harris Jayaraj & Harish Raghavendra",
+    "album": "Dhaam Dhoom",
+    "youtubeId": ""
+  },
+  {
+    "title": "Adada Mazhaida",
+    "artist": "Yuvan Shankar Raja, Rahul Nambiar & Saindhavi",
+    "album": "Paiyaa",
+    "youtubeId": ""
+  },
+  {
+    "title": "En Kadhal Solla",
+    "artist": "Yuvan Shankar Raja, Tanvi Shah & Na. Muthukumar",
+    "album": "Paiyaa",
+    "youtubeId": ""
+  },
+  {
+    "title": "Suthudhe Suthudhe",
+    "artist": "Yuvan Shankar Raja, Karthik & Sunitha Sarathy",
+    "album": "Paiyaa",
+    "youtubeId": ""
+  },
+  {
+    "title": "Pookkale Sattru Oyivedungal",
+    "artist": "A.R. Rahman, Haricharan & Shreya Ghoshal",
+    "album": "I",
+    "youtubeId": ""
+  },
+  {
+    "title": "Pookkal Pookkum",
+    "artist": "G.V. Prakash Kumar, Roop Kumar Rathod, Harini & Andrea Jeremiah",
+    "album": "Madharasapattinam",
+    "youtubeId": ""
+  },
+  {
+    "title": "Kadhal Sadugudu",
+    "artist": "S.P. Charan & Naveen",
+    "album": "Alaipayuthey",
+    "youtubeId": ""
+  },
+  {
+    "title": "Yaaryo Ivan",
+    "artist": "G.V. Prakash Kumar & Saindhavi",
+    "album": "",
+    "youtubeId": ""
+  },
+  {
+    "title": "Munbe Vaa",
+    "artist": "A.R. Rahman, Shreya Ghoshal & Naresh Iyer",
+    "album": "Sillunu Oru Kaadhal",
+    "youtubeId": "zVyo8I1Fe-c"
+  },
+  {
+    "title": "Veesum Velichathile",
+    "artist": "Karthik & G. Sahithi",
+    "album": "",
+    "youtubeId": ""
+  },
+  {
+    "title": "Unakkul Naane",
+    "artist": "Rita",
+    "album": "",
+    "youtubeId": ""
+  },
+  {
+    "title": "Pachai Nirame",
+    "artist": "Hariharan & Clinton",
+    "album": "Alaipayuthey",
+    "youtubeId": ""
+  },
+  {
+    "title": "Ponmalai Pozhudhu",
+    "artist": "Satish Chakravarthy & Benny Dayal",
+    "album": "",
+    "youtubeId": ""
+  },
+  {
+    "title": "Enakenna Yerkanaave",
+    "artist": "Bharadwaj, Unni Krishnan & Harini",
+    "album": "Parthen Rasithen",
+    "youtubeId": ""
+  },
+  {
+    "title": "Thinnadhey Ennai Thinnadhey",
+    "artist": "Bharadwaj, Shankar Mahadevan & Anuradha Sriram",
+    "album": "Parthen Rasithen",
+    "youtubeId": ""
+  },
+  {
+    "title": "Minnalai Pidithu",
+    "artist": "Unni Menon",
+    "album": "",
+    "youtubeId": ""
+  },
+  {
+    "title": "Ippadi Mazhai",
+    "artist": "Vijay Antony, Karthik & Saindhavi",
+    "album": "",
+    "youtubeId": ""
+  },
+  {
+    "title": "Melliname",
+    "artist": "Harish Raghavendra",
+    "album": "",
+    "youtubeId": ""
+  },
+  {
+    "title": "Kadhal Cricket (Love Not Out)",
+    "artist": "Hiphop Tamizha & Kharesma Ravichandran",
+    "album": "Thani Oruvan",
+    "youtubeId": ""
+  },
+  {
+    "title": "Nee Korinaal",
+    "artist": "Karthik & Swetha Mohan",
+    "album": "180",
+    "youtubeId": ""
+  },
+  {
+    "title": "Vizhigalin Aruginil",
+    "artist": "Ramesh Vinayagam",
+    "album": "",
+    "youtubeId": ""
+  },
+  {
+    "title": "Oh Nenje",
+    "artist": "Hariharan",
+    "album": "Unnale Unnale",
+    "youtubeId": ""
+  },
+  {
+    "title": "Hey Keechu Kiliye",
+    "artist": "Deva, Vairamuthu & Hariharan",
+    "album": "Mugavari",
+    "youtubeId": ""
+  },
+  {
+    "title": "Unakkenna Venum Sollu",
+    "artist": "Harris Jayaraj",
+    "album": "",
+    "youtubeId": ""
+  },
+  {
+    "title": "Mun Paniya",
+    "artist": "Yuvan Shankar Raja & S.P. Balasubrahmanyam",
+    "album": "Nandhaa",
+    "youtubeId": ""
+  },
+  {
+    "title": "Veesum Kaatrukku",
+    "artist": "P. Unni Krishnan & Harini",
+    "album": "",
+    "youtubeId": ""
+  },
+  {
+    "title": "April Maathathil",
+    "artist": "Deva",
+    "album": "",
+    "youtubeId": ""
+  },
+  {
+    "title": "Konja Naal Poru",
+    "artist": "Hariharan & Anupama",
+    "album": "",
+    "youtubeId": ""
+  }
+];
+  </script>
+  <script src="app.js"></script>
+</body>
+</html>
